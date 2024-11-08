@@ -1,36 +1,47 @@
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 
 public class GUI {
-    private final ImageIcon spielfeld;
+    private final ImageIcon spielfeldImage;
     private final JPanel tttGrid;
     private final JLabel background;
-    String playerOne;
-    String playerTwo;
-    private ArrayList<JLabel> labelList;
+    private  String user1;
+    private  String user2;
+    //private ArrayList<JLabel> labelList; -----------------------------------------------------------------------------
     private String currentPlayer;
 
 
     public GUI() {
-        spielfeld = new ImageIcon(this.getClass().getResource("/emptyTTT.jpg"));
+        spielfeldImage = new ImageIcon(this.getClass().getResource("/emptyTTT.jpg"));
         //das leere Bild
         currentPlayer = "X";
-        labelList = new ArrayList<>();
+        //labelList = new ArrayList<>(); -------------------------------------------------------------------------------
 
 
-        myFrame firstFrame = new myFrame("TicTacToe", 1920, 1137);
-        //frame wird erstellt
 
-        LoginFrame login = new LoginFrame(firstFrame.getFrame());
+        // EINLEITUNG MUSS MIT REIN !!!!
+        //IntroductionFrame intro = new IntroductionFrame();
+        GameFrame gameFrame = new GameFrame("TicTacToe", 1920, 1137);
+        LoginFrame loginFrame = new LoginFrame(gameFrame);
 
-        IntroductionFrame intro = new IntroductionFrame(login.getlF());
+
+
+
+
+
+
+        //LoginFrame login = new LoginFrame(gameFrame.getFrame());------------------------------------------------------
+
+
+        //IntroductionFrame intro = new IntroductionFrame(login.getlF());-----------------------------------------------
+
+
 
         tttGrid = new JPanel(new GridLayout(3, 3));
         tttGrid.setOpaque(false);
         //ein Spielfeld 3x3 wird erstellt
 
-        background = new JLabel(spielfeld);
+        background = new JLabel(spielfeldImage);
         //eine Fläche für das Bild wird erstellt
 
         background.setLayout(new BorderLayout());
@@ -39,7 +50,7 @@ public class GUI {
         background.add(tttGrid, BorderLayout.CENTER);
         //das unsichtbare Spielfeld wird auf den Hintergrund gelegt
 
-        firstFrame.getFrame().add(background);
+        gameFrame.getFrame().add(background);
         //der Hintergrund wird auf den Frame gelegt
 
 
@@ -57,7 +68,7 @@ public class GUI {
         Buttons button = new Buttons(10, 5);
         //ein neues Button Objekt mit dem Namen button wird erstellt
 
-        labelList.add(label.getLabel());
+        //labelList.add(label.getLabel());------------------------------------------------------------------------------
         //das Label wird in eine Liste eingefügt
 
         button.getButtons().addActionListener(e -> {

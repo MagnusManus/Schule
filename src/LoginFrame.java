@@ -1,74 +1,87 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class LoginFrame {
-    private JFrame lF;
-    private JTextField user1;
-    private JTextField user2;
-    private GridBagConstraints gbc;
-    private Labels u1;
-    private Labels u2;
-    private ContinueButtons next;
+    public JFrame frame;
+    public String user1;
+    public String user2;
+    public JButton loginButton;
 
+    // Frame für die Spielerauswahl, das ein bestehendes gameFrame übergeben bekommt
+    public LoginFrame(GameFrame gameFrame) {
+        frame = new JFrame();
+        frame.setLayout(new GridBagLayout());
+        frame.setTitle("Spielerauswahl");
+        frame.setSize(900, 750);
+        frame.setLocationRelativeTo(null);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-    public LoginFrame(JFrame nextFrame) {
-        lF = new JFrame();
-        lF.setLayout(new GridBagLayout());
-        lF.setSize(900, 750);
-        lF.setLocationRelativeTo(null);
-        lF.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        // GridBagConstraints für die Anordnung der Elemente im Grid
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10, 10, 1, 10); // Abstand um jedes Element herum
 
-        gbc = new GridBagConstraints();
+        // Beispiel-Label hinzufügen
+        JLabel label1 = new JLabel("Spieler 1: ");
+        gbc.gridx = 0; // Spalte 0
+        gbc.gridy = 0; // Zeile 0
+        gbc.anchor = GridBagConstraints.WEST; // linksbündig
+        frame.add(label1, gbc);
 
-        u1 = new Labels("Spieler 1: Namen eingeben ->", gbc.gridwidth, gbc.gridheight);
+        // Textfeld für Spieler 1
+        JTextField textField1 = new JTextField(15);
         gbc.gridx = 1;
+        gbc.gridy = 0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.weightx = 1.0;
+        frame.add(textField1, gbc);
+
+        JLabel label2 = new JLabel("Spieler 2: ");
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.anchor = GridBagConstraints.WEST;
+        frame.add(label2, gbc);
+
+        // Textfeld für Spieler 2
+        JTextField textField2 = new JTextField(15);
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.weightx = 1.0;
+        frame.add(textField2, gbc);
+
+        // Start-Button hinzufügen
+        JButton loginButton = new JButton("Spiel starten");
+        gbc.gridx = 0;
         gbc.gridy = 2;
         gbc.gridwidth = 2;
-        gbc.gridheight = 1;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        u1.setNewFont(15);
-        u1.setMyLabelVisible();
-        lF.add(u1.getLabel(), gbc);
+        gbc.fill = GridBagConstraints.NONE;
+        gbc.anchor = GridBagConstraints.CENTER;
+        frame.add(loginButton, gbc);
 
-        u2 = new Labels("Spieler 2, Namen eingeben ->", gbc.gridwidth, gbc.gridheight);
-        gbc.gridx = 1;
-        gbc.gridy = 3;
-        gbc.gridwidth = 2;
-        gbc.gridheight = 1;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        u2.setNewFont(15);
-        u2.setMyLabelVisible();
-        lF.add(u2.getLabel(), gbc);
+        frame.setVisible(true);
 
-        user1 = new JTextField();
-        gbc.gridx = 2;
-        gbc.gridy = 2;
-        gbc.gridwidth = 5;
-        gbc.gridheight = 1;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        lF.add(user1, gbc);
+        // ActionListener für den Start-Button
+        loginButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                user1 = textField1.getText(); // Speichern des Benutzernamens Spieler 1
+                user2 = textField2.getText(); // Speichern des Benutzernamens Spieler 2
 
-//        user2 = new JTextField();
-//        gbc.gridx = 2;
-//        gbc.gridy = 3;
-//        gbc.gridwidth = 5;
-//        gbc.gridheight = 1;
-//        gbc.fill = GridBagConstraints.HORIZONTAL;
-//        lF.add(user2, gbc);
+                frame.dispose(); // Schließt das aktuelle Fenster (Spielerauswahl)
 
-
-
-        next = new ContinueButtons(10, 2);
-
-        lF.add(next.getContinueButton());
-
-        lF.setVisible(false);
-
-        ContinueButtons.disposerButton(next.getContinueButton(), lF, nextFrame);
-
+                // Setzt das Hauptspiel-Fenster auf sichtbar
+                gameFrame.setFrameVisible(true);
+            }
+        });
     }
 
-    public JFrame getlF() {
-        return lF;
+    public String getUser1() {
+        return user1;
+    }
+
+    public String getUser2() {
+        return user2;
     }
 }

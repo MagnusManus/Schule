@@ -5,7 +5,7 @@ public class IntroductionFrame {
     JFrame iF;
     ContinueButtons exit;
 
-    public IntroductionFrame(JFrame frame) {
+    public IntroductionFrame() {
         Introduction intro = new Introduction(350, 200);
 
         exit = new ContinueButtons(1, 1);
@@ -16,8 +16,6 @@ public class IntroductionFrame {
         iF.setLayout(new BorderLayout());
         iF.add(intro.getIntroduction(), BorderLayout.NORTH);
         iF.add(exit.getContinueButton(), BorderLayout.CENTER);
-
-        ContinueButtons.disposerButton(exit.getContinueButton(), iF, frame);
 
         iF.setVisible(true);
 

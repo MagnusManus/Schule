@@ -1,11 +1,13 @@
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class myFrame {
+public class GameFrame {
     public JFrame frame;
 
-    public myFrame(String title, int width, int height) {
+    // Frame für das Hauptspiel
+    public GameFrame(String title, int width, int height) {
         frame = new JFrame();
         frame.setLayout(new BorderLayout());
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -13,9 +15,14 @@ public class myFrame {
         frame.setSize(width, height);
         frame.setLocationRelativeTo(null);
         frame.setVisible(false);
+
     }
 
     public JFrame getFrame() {
         return frame;
+    }
+
+    public void setFrameVisible(boolean visible) {
+        frame.setVisible(visible);
     }
 }
